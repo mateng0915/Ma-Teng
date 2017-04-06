@@ -40,7 +40,7 @@ public class BP {
     //用于执行速率  
     private double rate_w;  
     private double rate_y; 
-    //误差函数
+    //误差MSE
     public double sqr_err; 
 
      public BP(int inputNum, int hiddenNum, int outputNum, double rate_w,  
@@ -164,25 +164,31 @@ public class BP {
     } 
 
 
-    //更新偏移值
+    //update out linear Weight
     private void UpData_v() {  
         for(int k=0;k<outputNum;k++)  
         {  
-            for(int n=0;n<hiddenNum;n++)  
-                v[n][k] = v[n][k] + rate_w * delta_out[k] * hidden_out[n];  
-            out_y[k] = out_y[k] + rate_w * delta_out[k];   
+            for(int n=0;n<hiddenNum;n++) {
+		     
+                v[n][k] = v[n][k] + rate_w * delta_out[k] * hidden_out[n];
+		//System.out.println("Hidden Layer -> Out Layer W"+ n +"-"+ k +" = " + v[n][k]);  
+            }
+	    out_y[k] = out_y[k] + rate_w * delta_out[k];   
         } 
 
     } 
 
 
-    //更新权值 
+    //update input linear Weight
     private void UpData_w() {  
         for(int n=0;n<hiddenNum;n++)  
         {  
-            for(int m=0;m<inputNum;m++)  
+            for(int m=0;m<inputNum;m++){
+		      
                 w[m][n] = w[m][n] + rate_y * delta_hidden[n] * in[m];  
-            hidden_y[n] = hidden_y[n] + rate_y * delta_hidden[n]; 
+		//System.out.println("Input Layer -> Hidden Layer W"+ m +"-"+ n +" = " + w[m][n]);
+            }
+	    hidden_y[n] = hidden_y[n] + rate_y * delta_hidden[n]; 
         }  
     }  
       
@@ -193,6 +199,22 @@ public class BP {
         forward();  
         return out_out;  
     } 
+
+	public double[][] getW() {
+		        return w;
+			    }
+
+			        public void setW(double[][] w) {
+					        this.w = w;
+						    }
+
+						        public double[][] getV() {
+								        return v;
+									    }
+
+									        public void setV(double[][] v) {
+											        this.v = v;
+												    }
 
   
 }  

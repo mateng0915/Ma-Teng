@@ -38,7 +38,20 @@ public class Filetest {
             }  
         
             System.out.println("训练次数:"+p+"     error:"+error);  
-        } 
+        }
+
+	double  a[][] = bp.getW();
+	double     b[][] = bp.getV();	
+	for(int i=0; i<20;i++) 
+	{
+		for(int j = 0; j<2;j++)
+		{
+			System.out.println("Input Layer -> Hidden Layer W"+ j +"-"+ i +" = "+ a[j][i]);
+		}
+
+		System.out.println(" Hidden Layer -> Out Layer  W0" +"-"+ i +" = "+ b[i][0]);
+	}
+	 
         BufferedReader bufr1 = new BufferedReader(new FileReader("/tmp/test.txt"));  
         String line1 = null;  
         while((line1 = bufr1.readLine()) != null)  
@@ -56,5 +69,4 @@ public class Filetest {
 
 
 
-
-    }
+}
